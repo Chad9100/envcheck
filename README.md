@@ -46,7 +46,9 @@ Config (optional), in `envcheck.toml` or `pyproject.toml` under `[tool.envcheck]
 ports = [8000, 5432]
 ```
 
-Example output:
+Example output, captured from a real run on a small demo project (with a
+`.python-version`, `.nvmrc`, `.env.example`, `.env`, `envcheck.toml` and
+`requirements.txt`). Only key names are shown, never values:
 
 ```
 PASS  python (.python-version): python 3.12.10 satisfies 3.12
@@ -54,11 +56,12 @@ FAIL  node (.nvmrc): node is required (18) but not installed
 FAIL  env: missing keys in .env: DATABASE_URL
 WARN  env: extra keys in .env: DEBUG_TOOLBAR
 PASS  port 8000: free
-FAIL  port 5432: in use or not bindable
 FAIL  deps (requirements.txt): not installed: example-missing-pkg
 
-3 passed, 1 warnings, 4 failed
+2 passed, 1 warnings, 3 failed
 ```
+
+The exit code for this run is `1` because some checks failed.
 
 ## Development
 
